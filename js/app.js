@@ -17,6 +17,7 @@ const phrases = [
 
 startGameButton.addEventListener('click', () => {
     startGameScreen.style.display = 'none';
+    addPhraseToDisplay(getRandomPhraseAsArray(phrases));
 })
 
 getRandomPhraseAsArray = (array) => {
@@ -34,12 +35,14 @@ getRandomPhraseAsArray = (array) => {
 addPhraseToDisplay = (array) => {
     //loop through array of characters, for each character create an li and put that character in the li, 
     //if character is a letter add class .letter to li, then append the li to the #phrase ul
-    const li = document.createElement('li');
-    const ul = document.getElementById('phrase').firstChild;
+    const ul = document.getElementById('phrase').firstElementChild;
     for (let i=0; i<array.length; i++) {
-        li.innerHTML = array[i].value;
-        if (array[i].value != '') {
+        const li = document.createElement('li');
+        li.innerHTML = array[i];
+        if (li.innerHTML != ' ') {
             li.className = 'letter';
+        } else {
+            li.className = 'space';
         }
         ul.appendChild(li);
     }
