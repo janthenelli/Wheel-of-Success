@@ -47,3 +47,24 @@ addPhraseToDisplay = (array) => {
         ul.appendChild(li);
     }
 }
+
+checkLetter = (button) => {
+    //gets all elements with the class .letter then loops through them to see if there is a letter that matches 
+    //the button pressed by user, if theres a match add class .show to li and return that letter, if no match return null
+    const letters = document.getElementsByClassName('letter');
+    const match = false;
+    let matchedLetter;
+    for (let i=0; i<letters.length; i++) {
+        if (button.innerHTML === letters[i].innerHTML) {
+            letters[i].className = 'show';
+            matchedLetter = letters[i].innerHTML;
+            match = true;
+        }
+    }
+    if (match) {
+        return matchedLetter;
+    } else {
+        return null;
+    }
+
+}
