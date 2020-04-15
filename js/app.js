@@ -5,14 +5,14 @@ const startGameScreen = document.getElementById('overlay');
 let missed = 0;
 
 const phrases = [
-    'Pele is a fraud',
-    'Shelter in place',
-    'Please fix Fortnite',
-    'I am running out of things to do',
-    'I am running out of things to eat',
-    'Someone take my calculus test',
-    'I prefer Jeopardy',
-    'Messi is the goat'
+    'pele is a fraud',
+    'shelter in place',
+    'please fix Fortnite',
+    'i am running out of things to do',
+    'i am running out of things to eat',
+    'someone take my calculus test',
+    'i prefer Jeopardy',
+    'messi is the goat'
 ]
 
 startGameButton.addEventListener('click', () => {
@@ -35,7 +35,7 @@ getRandomPhraseAsArray = (array) => {
 addPhraseToDisplay = (array) => {
     //loop through array of characters, for each character create an li and put that character in the li, 
     //if character is a letter add class .letter to li, then append the li to the #phrase ul
-    const ul = document.getElementById('phrase').firstElementChild;
+    const ul = phrase.firstElementChild;
     for (let i=0; i<array.length; i++) {
         const li = document.createElement('li');
         li.innerHTML = array[i];
@@ -51,8 +51,8 @@ addPhraseToDisplay = (array) => {
 checkLetter = (button) => {
     //gets all elements with the class .letter then loops through them to see if there is a letter that matches 
     //the button pressed by user, if theres a match add class .show to li and return that letter, if no match return null
-    const letters = document.getElementsByClassName('letter');
-    const match = false;
+    var letters = document.getElementsByClassName('letter');
+    var match = false;
     let matchedLetter;
     for (let i=0; i<letters.length; i++) {
         if (button.innerHTML === letters[i].innerHTML) {
@@ -68,3 +68,11 @@ checkLetter = (button) => {
     }
 
 }
+
+qwerty.addEventListener('click', (e) => {
+    const button = e.target;
+    const letterClicked = button.innerHTML;
+    button.className = 'chosen';
+    button.setAttribute('disabled', '');
+    checkLetter(button);
+})
