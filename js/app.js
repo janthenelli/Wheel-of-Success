@@ -3,6 +3,7 @@ const phrase = document.getElementById('phrase');
 const startGameButton = document.querySelector('a.btn__reset');
 const startGameScreen = document.getElementById('overlay');
 let missed = 0;
+const letterButton = document.getElementsByTagName('BUTTON');
 
 const phrases = [
     'pele is a fraud',
@@ -52,24 +53,23 @@ checkLetter = (button) => {
     //gets all elements with the class .letter then loops through them to see if there is a letter that matches 
     //the button pressed by user, if theres a match add class .show to li and return that letter, if no match return null
     var letters = document.getElementsByClassName('letter');
-    let matchedLetter;
+    let matchedLetter = null;
     for (let i=0; i<letters.length; i++) {
-        if (button.innerHTML === letters[i].innerHTML) {
-            letters[i].className += 'show';
-            matchedLetter = letters[i].innerHTML;
-        } else {
-            matchedLetter = null;
+        if (button.textContent === letters[i].textContent) {
+            letters[i].classList.add('show');
+            matchedLetter = letters[i].textContent;
         }
     }
     return matchedLetter;
 }
 
-qwerty.addEventListener('click', (e) => {
+
+letterButton.addEventListener('click', (e) => {
     const button = e.target;
-    const letterClicked = button.innerHTML;
+    const letterClicked = button.textContent;
     button.className = 'chosen';
     if (button.className === 'chosen') {
         button.disabled = true;
     }  
-    checkLetter(button);
+    let letterFound = checkLetter(button);
 })
