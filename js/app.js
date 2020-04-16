@@ -6,14 +6,14 @@ let missed = 0;
 const letterButton = document.getElementsByTagName('BUTTON');
 
 const phrases = [
-    'pele is a fraud',
-    'shelter in place',
-    'please fix Fortnite',
-    'i am running out of things to do',
-    'i am running out of things to eat',
-    'someone take my calculus test',
-    'i prefer Jeopardy',
-    'messi is the goat'
+    'Pele is a fraud',
+    'Shelter in place',
+    'Please fix Fortnite',
+    'I am running out of things to do',
+    'I am running out of things to eat',
+    'Someone take my calculus test',
+    'I prefer jeopardy',
+    'Messi is the goat'
 ]
 
 startGameButton.addEventListener('click', () => {
@@ -55,21 +55,23 @@ checkLetter = (button) => {
     var letters = document.getElementsByClassName('letter');
     let matchedLetter = null;
     for (let i=0; i<letters.length; i++) {
-        if (button.textContent === letters[i].textContent) {
+        if (button.textContent === letters[i].textContent.toLowerCase()) {
             letters[i].classList.add('show');
-            matchedLetter = letters[i].textContent;
+            matchedLetter = letters[i].textContent.toLowerCase();
         }
     }
     return matchedLetter;
 }
 
-
-letterButton.addEventListener('click', (e) => {
+qwerty.addEventListener('click', (e) => {
     const button = e.target;
-    const letterClicked = button.textContent;
-    button.className = 'chosen';
-    if (button.className === 'chosen') {
-        button.disabled = true;
-    }  
-    let letterFound = checkLetter(button);
+    if (button.tagName === 'BUTTON') {
+        const letterClicked = button.textContent;
+        console.log(letterClicked);
+        button.className = 'chosen';
+        if (button.className === 'chosen') {
+            button.disabled = true;
+        }  
+        let letterFound = checkLetter(button);
+    }
 })
