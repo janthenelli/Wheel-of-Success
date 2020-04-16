@@ -52,27 +52,24 @@ checkLetter = (button) => {
     //gets all elements with the class .letter then loops through them to see if there is a letter that matches 
     //the button pressed by user, if theres a match add class .show to li and return that letter, if no match return null
     var letters = document.getElementsByClassName('letter');
-    var match = false;
     let matchedLetter;
     for (let i=0; i<letters.length; i++) {
         if (button.innerHTML === letters[i].innerHTML) {
-            letters[i].className = 'show';
+            letters[i].className += 'show';
             matchedLetter = letters[i].innerHTML;
-            match = true;
+        } else {
+            matchedLetter = null;
         }
     }
-    if (match) {
-        return matchedLetter;
-    } else {
-        return null;
-    }
-
+    return matchedLetter;
 }
 
 qwerty.addEventListener('click', (e) => {
     const button = e.target;
     const letterClicked = button.innerHTML;
     button.className = 'chosen';
-    button.setAttribute('disabled', '');
+    if (button.className === 'chosen') {
+        button.disabled = true;
+    }  
     checkLetter(button);
 })
