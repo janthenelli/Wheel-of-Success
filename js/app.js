@@ -2,8 +2,12 @@ const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const startGameButton = document.querySelector('a.btn__reset');
 const startGameScreen = document.getElementById('overlay');
+const title = document.querySelector('.title');
 let missed = 0;
 const letterButton = document.getElementsByTagName('BUTTON');
+const heartsList = document.getElementsByClassName('tries');
+let show = document.getElementsByClassName('show');
+let letters = document.getElementsByClassName('letter');
 
 const phrases = [
     'Pele is a fraud',
@@ -12,7 +16,7 @@ const phrases = [
     'I am running out of things to do',
     'I am running out of things to eat',
     'Someone take my calculus test',
-    'I prefer jeopardy',
+    'I prefer Jeopardy',
     'Messi is the goat'
 ]
 
@@ -67,11 +71,28 @@ qwerty.addEventListener('click', (e) => {
     const button = e.target;
     if (button.tagName === 'BUTTON') {
         const letterClicked = button.textContent;
-        console.log(letterClicked);
         button.className = 'chosen';
         if (button.className === 'chosen') {
             button.disabled = true;
         }  
         let letterFound = checkLetter(button);
+        if (letterFound === null) {
+            i = missed;
+            heartsList[i].style.display = 'none';
+            missed += 1;
+        }
     }
+    checkWin();
 })
+    
+checkWin = () => {
+    if (show.length === letters.length) {
+        startGameScreen.className = 'win';
+        title.innerHTML = 'Congrats! You guessed the correct phrase!';
+        startGameScreen.style.display = '';
+    } else if (missed === 5) {
+        startGameScreen.className = 'lose';
+        title.textContent = 'Sorry! Too many wrong guesses, you lose!';
+        startGameScreen.style.display = '';
+    }
+}
