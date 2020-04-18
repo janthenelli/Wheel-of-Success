@@ -1,5 +1,6 @@
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
+const ul = phrase.firstElementChild;
 const startGameButton = document.querySelector('a.btn__reset');
 const startGameScreen = document.getElementById('overlay');
 const title = document.querySelector('.title');
@@ -21,8 +22,12 @@ const phrases = [
 ]
 
 startGameButton.addEventListener('click', () => {
-    startGameScreen.style.display = 'none';
-    addPhraseToDisplay(getRandomPhraseAsArray(phrases));
+    if (startGameButton.textContent === 'Reset') {
+        resetGame();
+    } else {
+        startGameScreen.style.display = 'none';
+        addPhraseToDisplay(getRandomPhraseAsArray(phrases));
+    }
 })
 
 getRandomPhraseAsArray = (array) => {
@@ -40,7 +45,6 @@ getRandomPhraseAsArray = (array) => {
 addPhraseToDisplay = (array) => {
     //loop through array of characters, for each character create an li and put that character in the li, 
     //if character is a letter add class .letter to li, then append the li to the #phrase ul
-    const ul = phrase.firstElementChild;
     for (let i=0; i<array.length; i++) {
         const li = document.createElement('li');
         li.innerHTML = array[i];
@@ -70,7 +74,6 @@ checkLetter = (button) => {
 qwerty.addEventListener('click', (e) => {
     const button = e.target;
     if (button.tagName === 'BUTTON') {
-        const letterClicked = button.textContent;
         button.className = 'chosen';
         if (button.className === 'chosen') {
             button.disabled = true;
@@ -89,10 +92,34 @@ checkWin = () => {
     if (show.length === letters.length) {
         startGameScreen.className = 'win';
         title.innerHTML = 'Congrats! You guessed the correct phrase!';
+        setResetButton();
         startGameScreen.style.display = '';
     } else if (missed === 5) {
         startGameScreen.className = 'lose';
         title.textContent = 'Sorry! Too many wrong guesses, you lose!';
+        setResetButton();
         startGameScreen.style.display = '';
     }
+}
+
+setResetButton = () => {
+    startGameButton.textContent = 'Reset';
+}
+
+resetGame = () => {
+    //click reset button the game end screen should go away, the current phrase and 
+    //letters should all be reset and a new phrase should be selected
+    const gameContent = ul.children;
+    let prevSelectedLetters = document.getElementsByClassName('chosen');
+    ul.remove(gameContent);
+    missed = 0;
+    for (let i=0; i<heartsList.length; i++) {
+        heartsList[i].style.display = '';
+    }
+    while (prevSelectedLetters[0]) {
+        prevSelectedLetters[0].removeAttribute('disabled');
+        prevSelectedLetters[0].removeAttribute('class');
+    }
+    startGameScreen.style.display = 'none';
+    addPhraseToDisplay(getRandomPhraseAsArray(phrases));
 }
