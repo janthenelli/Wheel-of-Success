@@ -111,7 +111,9 @@ resetGame = () => {
     //letters should all be reset and a new phrase should be selected
     const gameContent = ul.children;
     let prevSelectedLetters = document.getElementsByClassName('chosen');
-    ul.remove(gameContent);
+    for (let i=gameContent.length - 1; i>=0; i--) {
+        ul.removeChild(gameContent[i]);
+    }
     missed = 0;
     for (let i=0; i<heartsList.length; i++) {
         heartsList[i].style.display = '';
