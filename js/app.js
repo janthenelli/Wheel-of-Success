@@ -107,8 +107,6 @@ setResetButton = () => {
 }
 
 resetGame = () => {
-    //click reset button the game end screen should go away, the current phrase and 
-    //letters should all be reset and a new phrase should be selected
     const gameContent = ul.children;
     let prevSelectedLetters = document.getElementsByClassName('chosen');
     for (let i=gameContent.length - 1; i>=0; i--) {
